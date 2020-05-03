@@ -11,28 +11,42 @@ public class Contacts {
         contacts.put(phone, contact);
     }
 
-    public void deleteContactsName(String name) {
+    public void deleteContacts(String name, String surname) {
         Iterator<String> iter = contacts.keySet().iterator();
         Contact contact = new Contact();
         while (iter.hasNext()) {
             String nameIt = iter.next();
             contact = contacts.get(nameIt);
-            if (name.equals(contact.getName())) {
+            if (name.equals(contact.getName()) && surname.equals(contact.getSurname())) {
                 iter.remove();
+            } else {
+                System.out.println("Вы ввели не корректные данные. Проверьте вводимые фамилию или имя.");
             }
         }
     }
 
-    public void deleteContactsSurname(String surname) {
+    public boolean findContacts(String phone) {
         Iterator<String> iter = contacts.keySet().iterator();
         Contact contact = new Contact();
+        Scanner scanner = new Scanner(System.in);
+        boolean check = false;
         while (iter.hasNext()) {
             String nameIt = iter.next();
             contact = contacts.get(nameIt);
-            if (surname.equals(contact.getSurname())) {
-                iter.remove();
+            if (phone.equals(contact.getPhone())) {
+                Contact.toString(contact);
+                check = true;
+                break;
+            } else {
+                check = false;
             }
         }
+        if (check == false) {
+            System.out.println("Номер телефона в телефонном справочнике не найден.");
+        } else {
+            //empty
+        }
+        return check;
     }
 
     public void editContacts(String phone) {
@@ -60,7 +74,6 @@ public class Contacts {
                     contact.setPhone(scanner.nextLine());
                 } else if (id == 4) {
                     System.out.println("Введите новую группу:");
-
                 } else {
                     System.out.println("Вы ввели не правильное значение, допустимые значения от 1 до 4. Повторите ввод пожалуйста.");
                 }

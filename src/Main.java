@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 /**
@@ -30,9 +31,9 @@ class Main {
             System.out.println("2. Добавить пропущенный вызов");
             System.out.println("3. Вывести все пропущеные вызовы");
             System.out.println("4. Очистить пропущенные вызовы");
-            System.out.println("5. Удалить контакт (по имени)");
-            System.out.println("6. Удалить контакт (по фамилии)");
-            System.out.println("7. Редактировать контакт (поиск по номеру телефона)");
+            System.out.println("5. Удалить контакт по имени и фамилии");
+            System.out.println("6. Редактировать контакт (поиск по номеру телефона)");
+            System.out.println("7. Поиск контакта по номеру телефона");
             System.out.println("8. Выход");
             System.out.println("Выберите пункт из меню (1-8)");
             int id = Integer.parseInt(scanner.nextLine());
@@ -58,22 +59,23 @@ class Main {
                 contacts.setContacts(contact.getPhone(), contact);
             } else if (id == 2) {
                 System.out.println("Введите номер телефона пропущенного звонка:");
-                missedCalled.addMissedCalled(scanner.nextLine(), contacts);
+                missedCalled.addMissedCalled(scanner.nextLine());
             } else if (id == 3) {
                 System.out.println("Список пропущенных звонков:");
-                missedCalled.getAllMissedCalled();
+                missedCalled.getAllMissedCalled(contacts);
             } else if (id == 4) {
                 System.out.println("Список пропущенных звонков очищен");
                 missedCalled.clearAllMissedCalled();
             } else if (id == 5) {
-                System.out.println("Введите имя контакта, что бы его удалить:");
-                contacts.deleteContactsName(scanner.nextLine());
+                System.out.println("Введите имя и фамилию контакта, что бы его удалить:");
+                String[] subStr = scanner.nextLine().split(" ");
+                contacts.deleteContacts(subStr[0], subStr[1]);
             } else if (id == 6) {
-                System.out.println("Введите фамилию контакта, что бы его удалить:");
-                contacts.deleteContactsSurname(scanner.nextLine());
-            } else if (id == 7) {
                 System.out.println("Введите номер телефона контакта для редактирования");
                 contacts.editContacts(scanner.nextLine());
+            } else if (id == 7) {
+                System.out.println("Введите номер телефона контакта для поиска");
+                contacts.findContacts(scanner.nextLine());
             } else if (id == 8) {
                 check = false;
             } else {

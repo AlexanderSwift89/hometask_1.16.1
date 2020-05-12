@@ -25,28 +25,16 @@ public class Contacts {
         }
     }
 
-    public boolean findContacts(String phone) {
-        Iterator<String> iter = contacts.keySet().iterator();
-        Contact contact = new Contact();
-        Scanner scanner = new Scanner(System.in);
-        boolean check = false;
-        while (iter.hasNext()) {
-            String nameIt = iter.next();
-            contact = contacts.get(nameIt);
-            if (phone.equals(contact.getPhone())) {
-                Contact.toString(contact);
-                check = true;
-                break;
-            } else {
-                check = false;
-            }
-        }
-        if (check == false) {
+    public boolean checkContacts(String phone) {
+        return contacts.containsKey(phone);
+    }
+
+    public void findContacts(String phone) {
+        if ((contacts.get(phone)).equals(null)) {
             System.out.println("Номер телефона в телефонном справочнике не найден.");
         } else {
-            //empty
+            Contact.toString(contacts.get(phone));
         }
-        return check;
     }
 
     public void editContacts(String phone) {

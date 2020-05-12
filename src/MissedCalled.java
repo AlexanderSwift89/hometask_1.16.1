@@ -13,10 +13,11 @@ public class MissedCalled {
 
     public void getAllMissedCalled(Contacts contacts) {
         for (LocalDateTime keyMissedCalls : missedCalls.keySet()) {
-            if (contacts.findContacts(missedCalls.get(keyMissedCalls))) {
-                //empty
+            if (contacts.checkContacts(missedCalls.get(keyMissedCalls))) {
+                Contact contact = contacts.getValueContacts(missedCalls.get(keyMissedCalls));
+                System.out.println(contact.getName() + " " + contact.getSurname());
             } else {
-                System.out.println("Time: " + keyMissedCalls + " телефон: " + missedCalls.get(keyMissedCalls));
+                System.out.println("Телефон: " + missedCalls.get(keyMissedCalls));
             }
         }
     }
